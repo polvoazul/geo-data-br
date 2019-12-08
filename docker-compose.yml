@@ -1,0 +1,6 @@
+version: '3'
+services:
+  geo_data_br:
+    build: .
+    volumes:
+    - .:/app
