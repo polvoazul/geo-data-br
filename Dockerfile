@@ -1,7 +1,8 @@
-FROM continuumio/miniconda3 # We need conda for geopandas installation
+FROM continuumio/miniconda3
+# We need conda for geopandas installation
+
 ENV PYTHONDONTWRITEBYTECODE=1 PIP_NO_CACHE_DIR=0
-RUN conda create -n env python=3.7
-RUN echo "source activate env" > ~/.bashrc
+RUN conda install python=3.7
 ENV PATH /opt/conda/envs/env/bin:$PATH
 
 RUN apt-get update && apt-get install -y git
