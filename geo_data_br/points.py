@@ -4,7 +4,7 @@ import geopandas as gpd
 import pandas as pd
 
 def data_on_points(points: List[Point], level='best'):
-    '''points is a list of longitute, latitude tuples shapely.geometry.Point objects'''
+    '''points is a list of longitute, latitude tuples or shapely.geometry.Point objects'''
     if level not in ('best', 'all'):
         raise TypeError('choose a suported_level')
     if not points:
@@ -27,12 +27,15 @@ def data_on_points(points: List[Point], level='best'):
         raise NotImplementedError
 
 from importlib.resources import path
+from zipfile import ZipFile
 import functools, joblib
 @functools.lru_cache()
 def get_geo_dataframes():
     out = {}
-    with path('geo_data_br.data', 'municipality.pickle') as municipality, \
-            path('geo_data_br.data', 'udh.pickle') as udh:
+    with path('geo_data_br.data', 'data.zip') as data_path, \
+            ZipFile(data_path, 'r') as data, \
+            data.open('municipality.pickle') as municipality, \
+            data.open('udh.pickle') as udh:
         out['municipality'] = joblib.load(municipality)
         out['udh'] = joblib.load(udh)
     for level_name, df in out.items():

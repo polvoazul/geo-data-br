@@ -1,0 +1,15 @@
+CHANGES
+=======
+
+* Added data to package, and preparing to deploy to pypi
+
+0.1.0
+-----
+
+* fixed empty points error
+* simplified dockerfile
+* starting lib, tests and documentation
+* adding skeleton for a python lib
+* add readme
+* starting repo, adding notebooks that download and explore data from www.atlasbrasil.org.br
+* Initial commit

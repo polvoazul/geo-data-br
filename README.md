@@ -18,8 +18,9 @@ It contains a detailed set of demographic information such as gender, age, incom
 
 Given a list of latitude and longitude points we can use the lib to retrieve the corresponding data.
 
+    import geo_data_br.points
     points_of_interest = [(-59.23352, -3.35030), (-60.17875, -3.27442)]
-    demographics_on_poi = geo_data_br.data_on_points(points_of_interest)
+    demographics_on_poi = geo_data_br.points.data_on_points(points_of_interest)
     demographics_on_poi.gini
     >>> 0    0.59
     >>> 1    0.51
