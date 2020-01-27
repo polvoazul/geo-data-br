@@ -10,6 +10,12 @@ It contains a detailed set of demographic information such as gender, age, incom
 
 ## Installing the `geo_data_br` lib
 
+First install [geopandas](http://geopandas.org/install.html) using conda:
+
+    conda install geopandas
+
+Then,
+
     pip3 install geo_data_br
 
 # Features
@@ -31,7 +37,5 @@ Given a list of latitude and longitude points we can use the lib to retrieve the
     >>> 1    68.70
     >>> Name: espvida, dtype: float64
 
-
-## Feature 2
 
 # Contributing

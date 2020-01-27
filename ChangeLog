@@ -1,6 +1,11 @@
 CHANGES
 =======
 
+0.2.4
+-----
+
+* excluding data from package (package was too big)
+
 0.2.2
 -----
 
