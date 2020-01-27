@@ -4,3 +4,7 @@ services:
     build: .
     volumes:
     - .:/app
+    - cache:/root/.cache
+
+volumes:
+  cache:

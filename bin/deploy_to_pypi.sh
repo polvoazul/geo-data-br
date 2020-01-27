@@ -4,7 +4,7 @@ set -e
 
 BUILD=1 ./bin/test.sh
 
-rm -rf dist
+rm -rf dist build *.egg-info
 python setup.py sdist bdist_wheel
 twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 echo 'to prod? (press enter)'; read;
