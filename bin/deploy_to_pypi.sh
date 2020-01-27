@@ -2,7 +2,7 @@
 cd $(git rev-parse --show-toplevel)
 set -e
 
-./bin/test.sh
+BUILD=1 ./bin/test.sh
 
 rm -rf dist
 python setup.py sdist bdist_wheel
