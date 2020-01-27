@@ -1,2 +1,3 @@
 joblib
 shapely
+importlib_metadata
