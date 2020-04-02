@@ -5,14 +5,15 @@ import pandas as pd
 from appdirs import user_cache_dir
 import os.path
 
-def data_on_points(points: List[Point], level='best'):
+def data_on_points(points: List[Point], column_name="coordinates", level='best'):
     '''points is a list of longitute, latitude tuples or shapely.geometry.Point objects'''
     if level not in ('best', 'all'):
         raise TypeError('choose a suported_level')
-    if not points:
+    if len(points) == 0:
         return pd.DataFrame()
-    points = [Point(p) for p in points]
-    points =  gpd.GeoDataFrame(geometry=points)
+    points = _to_dataframe(points)
+    points["geometry"] = points[column_name].apply(lambda x: Point(x))
+    points =  gpd.GeoDataFrame(points, geometry="geometry")
     points.crs = {'init' :'epsg:4326'} # default to this projection
     geo_dfs = get_geo_dataframes()
     udh_level = gpd.sjoin(points, geo_dfs['udh'])
@@ -24,7 +25,9 @@ def data_on_points(points: List[Point], level='best'):
             municipality_level = gpd.sjoin(points.loc[missing_points], geo_dfs['municipality'])
         out = pd.concat([udh_level, municipality_level], sort=False)
         assert out.index.shape == points.index.shape
-        return out.loc[points.index]
+        out.loc[points.index]
+        out = out.set_index("original_index")
+        return out
     elif level == 'all':
         raise NotImplementedError
 
@@ -63,6 +66,7 @@ def _download_data():
     os.makedirs(_cache_dir, exist_ok=True)
     try:
         urlretrieve(url, _inea_filepath)
+        print(f"Getting data from {_inea_filepath}")
         with ZipFile(_inea_filepath, 'r') as data:
             data.extractall(_cache_dir)
     except: # intentional raw except
@@ -70,4 +74,10 @@ def _download_data():
         except FileNotFoundError: pass
         raise
 
-
+def _to_dataframe(possible_df, column_name="coordinates"):
+    if type(possible_df) == pd.DataFrame:
+        return possible_df
+    df = pd.DataFrame(data={column_name: possible_df})
+    df = df.reset_index()
+    df = df.rename(columns={"index": "original_index"})
+    return df
