@@ -26,7 +26,7 @@ def data_on_points(points: List[Point], column_name="coordinates", level='best')
         out = pd.concat([udh_level, municipality_level], sort=False)
         assert out.index.shape == points.index.shape
         out.loc[points.index]
-        out = out.set_index("original_index")
+        out = out.set_index("index")
         return out
     elif level == 'all':
         raise NotImplementedError
@@ -79,5 +79,5 @@ def _to_dataframe(possible_df, column_name="coordinates"):
         return possible_df
     df = pd.DataFrame(data={column_name: possible_df})
     df = df.reset_index()
-    df = df.rename(columns={"index": "original_index"})
+    # df = df.rename(columns={"index": "original_index"})
     return df
