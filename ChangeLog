@@ -1,6 +1,19 @@
 CHANGES
 =======
 
+* Correct data file
+
+0.3.1
+-----
+
+* Changing name of preserved index
+* Adding support for series and dataframes as input types
+* Actual deduplicated data
+* Deduplicating udh data to prevent bugs when using data\_on\_points, adding deploy data functionality
+* Making bash scripts via python to be OS independent and add clarity
+* add Municipios\_Brasil to repo
+* improve README on installation
+
 0.2.4
 -----
 
