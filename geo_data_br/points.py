@@ -27,6 +27,9 @@ def data_on_points(points, column_name="coordinates", level="best"):
                 points.loc[missing_points], geo_dfs["municipality"], how="left"
             )
         out = pd.concat([udh_level, municipality_level], sort=False)
+        out = out.drop_duplicates(
+            subset="index"
+        )  # some poligons have intersection, this is used to get just one of these intersections
         assert out.index.shape == points.index.shape
         out = out.loc[points.index]
         return out.set_index("index")
